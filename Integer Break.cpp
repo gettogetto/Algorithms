@@ -4,6 +4,8 @@ Given a positive integer n, break it into the sum of at least two positive integ
 For example, given n = 2, return 1 (2 = 1 + 1); given n = 10, return 36 (10 = 3 + 3 + 4).
 
 Note: you may assume that n is not less than 2.
+
+因数一定都小于4,即1,2,3,因为1对乘积无效，所以因数只能是2和3 
 */ 
 #include<iostream>
 #include<string>
