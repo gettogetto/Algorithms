@@ -5,7 +5,7 @@ Edge::Edge()
 {
 }
 
-Edge::Edge(int begin, int end):m_begin(begin),m_end(end)
+Edge::Edge(int begin, int end,int weight):m_begin(begin),m_end(end),m_weight(weight)
 {
 
 }
