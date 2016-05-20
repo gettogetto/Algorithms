@@ -189,7 +189,28 @@ void radixSort(vector<int>&data) //基数排序
 	}
 }
 
-
+//计数排序 O(n+k);需要O(n+k)额外空间
+void countingSort(vector<int>& nums){
+	int maxValueInNums=0;
+	for(auto num:nums){
+		maxValueInNums=max(maxValueInNums,num);
+	}
+	vector<int>count(maxValueInNums+1,0);
+	for(auto num:nums){
+		count[num]++;
+	}
+	for(int i=1;i<count.size();i++){
+		count[i]=count[i]+count[i-1];
+	}
+	vector<int>tmpVector(nums.size(),0);
+	for(int i=tmpVector.size()-1;i>=0;i--){
+		tmpVector[count[nums[i]]]=nums[i];
+		nums[i]--;
+	}
+	for(int i=0;i<nums.size();i++){
+		nums[i]=tmpVector[i];
+	}
+} 
 
 int main() {
 	vector<int> v(10000, 0);
@@ -198,6 +219,8 @@ int main() {
 	for (int i = 0; i<5; i++) {
 
 		for (int i = 0; i<v.size(); i++) v[i] = rand(); start1 = clock(); radixSort(v); end1 = clock(); cout << "radix sort  " << double(end1 - start1) << "ms" << endl;
+		
+		for (int i = 0; i<v.size(); i++) v[i] = rand(); start1 = clock(); countingSort(v); end1 = clock(); cout << "counting sort  " << double(end1 - start1) << "ms" << endl;
 
 		for (int i = 0; i<v.size(); i++) v[i] = rand(); start1 = clock(); sort(v.begin(), v.end()); end1 = clock(); cout << "stl sort  " << double(end1 - start1) << "ms" << endl;
 
@@ -219,8 +242,10 @@ int main() {
 		for (int i = 0; i<v.size(); i++) v[i] = rand(); start1 = clock(); bubbleSort(v); end1 = clock(); cout << "bubbleSort  " << double(end1 - start1) << "ms" << endl;
 
 		cout << "========================================" << endl;
+		
 	}
-	getchar();
 	//for(auto i:v) cout<<i<<" ";
+	getchar();
+	
 }
 
