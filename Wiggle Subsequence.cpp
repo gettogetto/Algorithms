@@ -46,6 +46,7 @@ public:
     }
     */
     //正确版本
+	//贪心1 
         int wiggleMaxLength(vector<int>& nums) {
             int n=nums.size();
             if(n<=2) return n;
@@ -63,5 +64,37 @@ public:
             return maxLen;
             
         }
+    //贪心2
+	    int wiggleMaxLength(vector<int>& nums) {
+	        int size=nums.size();
+	        int f=1, d=1;
+	        for(int i=1; i<size; ++i){
+	            if(nums[i]>nums[i-1]){
+	                f=d+1;
+	            }
+	            else if(nums[i]<nums[i-1]){
+	                d=f+1;
+	            }
+	        }
+	        return min(size, max(f, d));
+    	}
+	//dp 
+	    int wiggleMaxLength(vector<int>& nums) {
+	        int size=nums.size();
+	        if(size==0) return 0;
+	        vector<int> f(size, 1);
+	        vector<int> d(size, 1);
+	        for(int i=1; i<size; ++i){
+	            for(int j=0; j<i; ++j){
+	                if(nums[j]<nums[i]){
+	                    f[i]=max(f[i], d[j]+1);
+	                }
+	                else if(nums[j]>nums[i]){
+	                    d[i]=max(d[i], f[j]+1);
+	                }
+	            }
+	        }
+	        return max(d.back(), f.back());
+   		}
     
 };
