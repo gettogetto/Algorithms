@@ -46,7 +46,10 @@ int kmp(const std::string& s, const std::string& p, const int sIndex = 0)
     return j == p.length() ? i - j: -1;
 }
 int main(){
-	string s="abcdefg";
-	string p="abcdabcd";
-	cout<<kmp(s,p,0);
+	string s="aaaaaabaabcac";
+	string p="abaabcac";
+	vector<int>next;
+	getNext(p,next);
+	for(auto i:next) cout<<i<<" ";
+	cout<<"\n"<<kmp(s,p,0);
 }
