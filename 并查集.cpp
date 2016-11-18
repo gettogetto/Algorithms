@@ -87,23 +87,29 @@ class superquickuf{
 			//优化1: 
 			if(size[root1]<size[root2]){
 				id[root1]=root2;//小树连到大树上成为子树 
-				size[root1]+=size[root2];
+				size[root2]+=size[root1];
 			}
 			else{
 				id[root2]=root1;
-				size[root2]+=size[root1];
+				size[root1]+=size[root2];
 			} 
 			components--;//合并后，树的数量减一 
 		}
 		int find_root(int p){
-			while(id[p]!=p){
+			/* 
+			while(id[p]!=p){//直到根节点 
 				
 				//优化2：p节点的父节点设为它的爷爷节点 
 				// 路径压缩，会破坏掉当前节点的父节点的尺寸信息，因为压缩后，当前节点的父节点已经变了  
 				id[p]=id[id[p]];
 				p=id[p];
 			} 
-			return p;
+			return p;*/
+			if(id[p]==p) return p;
+			else{
+				id[p]=find_root(id[p]);//压缩路径
+				return id[p];
+			}
 		}
 		bool is_connected(int p,int q){
 			return find_root(p)==find_root(q);
