@@ -105,11 +105,12 @@ class superquickuf{
 				p=id[p];
 			} 
 			return p;*/
-			if(id[p]==p) return p;
-			else{
+			if(id[p]!=p) {
+	
 				id[p]=find_root(id[p]);//Ñ¹ËõÂ·¾¶
-				return id[p];
+			
 			}
+			return id[p];
 		}
 		bool is_connected(int p,int q){
 			return find_root(p)==find_root(q);
