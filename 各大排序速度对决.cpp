@@ -224,9 +224,9 @@ int main() {
 
 		for (int i = 0; i<v.size(); i++) v[i] = rand(); start1 = clock(); sort(v.begin(), v.end()); end1 = clock(); cout << "stl sort  " << double(end1 - start1) << "ms" << endl;
 
-		for (int i = 0; i<v.size(); i++) v[i] = rand(); start1 = clock(); threeWayQuickSort(v, 0, v.size() - 1); end1 = clock(); cout << "threeWayQuickSort  " << double(end1 - start1) << "ms" << endl;
+		for (int i = 0; i<v.size(); i++) v[i] = 1; start1 = clock(); threeWayQuickSort(v, 0, v.size() - 1); end1 = clock(); cout << "threeWayQuickSort  " << double(end1 - start1) << "ms" << endl;
 
-		for (int i = 0; i<v.size(); i++) v[i] = rand(); start1 = clock(); quickSort(v, 0, v.size() - 1); end1 = clock(); cout << "quickSort  " << double(end1 - start1) << "ms" << endl;
+		for (int i = 0; i<v.size(); i++) v[i] = 1; start1 = clock(); quickSort(v, 0, v.size() - 1); end1 = clock(); cout << "quickSort  " << double(end1 - start1) << "ms" << endl;
 
 		for (int i = 0; i<v.size(); i++) v[i] = rand(); start1 = clock(); heapSort(v); end1 = clock(); cout << "heapSort  " << double(end1 - start1) << "ms" << endl;
 
