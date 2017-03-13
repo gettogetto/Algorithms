@@ -21,7 +21,7 @@ bool nextPermutation(vector<int> &num) {
 	if (num.size() <= 1) return false;
     
 	int i = (int)num.size() - 1;
-	while (i > 0 && num[i] <= num[i-1])
+	while (i > 0 && num[i] <= num[i-1])//找出逆序的后缀 
 		--i;
 	if (i == 0) {
 		//reverse(num.begin(), num.end());
@@ -30,11 +30,11 @@ bool nextPermutation(vector<int> &num) {
 	
 	--i;
 	int j = (int)num.size() - 1;
-	while (!(num[i] < num[j])) 
+	while (!(num[i] < num[j])) //找到第一个比i点大的元素 
 		--j;
 	
-	swap(num[i], num[j]);
-	reverse(num.begin() + i + 1, num.end());
+	swap(num[i], num[j]);//交换位置 
+	reverse(num.begin() + i + 1, num.end());//反转后面的逆序后缀 
 	return true;
 }
 int main(){
