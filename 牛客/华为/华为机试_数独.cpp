@@ -17,20 +17,20 @@ using namespace std;
 
 vector<vector<vector<int>>> ans;
 bool validation(vector<vector<int>> data, pair<int,int> pos, int val){
-    for(int i=0; i<9; i++){
+    for(int i=0; i<9; i++){//ÐÐ 
         if(i==pos.second)
             continue;
         if(data[pos.first][i]==val)
             return false;
     }
-    for(int i=0; i<9; i++){
+    for(int i=0; i<9; i++){//ÁÐ 
         if(i==pos.first)
             continue;
         if(data[i][pos.second]==val)
             return false;
     }
     int x = pos.first / 3, y = pos.second / 3;
-    for(int i=0; i<3; i++){
+    for(int i=0; i<3; i++){//¾Å¹¬ 
         for(int j=0; j<3; j++){
             if(data[x*3+i][y*3+j]==val)
                 return false;

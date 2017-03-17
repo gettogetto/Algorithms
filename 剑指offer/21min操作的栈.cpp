@@ -2,7 +2,7 @@
 #include<stack>
 #include<iostream>
 using namespace std;
-class Mystack{
+class Mystack{-
 	public:
 		void push(int val){
 			if(mini.empty()||mini.top()>=val){
