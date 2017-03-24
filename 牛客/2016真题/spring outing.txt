@@ -1,0 +1,92 @@
+题目描述
+You class are planning for a spring outing. N people are voting for a destination out of K candidate places.
+The voting progress is below:
+First the class vote for the first candidate place. If more than half of the class agreed on the place, the place is selected. The voting ends.
+Otherwise they vote for the second candidate place. If more than half of the class agreed on the place, the place is selected. The voting ends.
+Otherwise they vote for the third candidate place in the same way and go on.
+If no place is selected at last there will be no spring outing and everybody stays at home.
+Before the voting, the Chief Entertainment Officer did a survey, found out every one's preference which can be represented as a permutation of 0, 1, ... K. (0 is for staying at home.) For example, when K=3, preference "1, 0, 2, 3" means that the first place is his first choice, staying at home is the second choice, the second place is the third choice and the third place is the last choice.
+The Chief Entertainment Officer sends the survey results to the class. So everybody knows the others' preferences. Everybody wants his more prefered place to be selected. And they are very smart, they always choose the optimal strategy in the voting progress to achieve his goal.
+Can you predict which place will be selected?
+
+输入描述:
+The first line contains two integers, N and K, the number of people in your class and the number of candidate places.
+The next N lines each contain a permutation of 0~K, representing someone's preference.
+For 40% of the data, 1 <= N, K <= 10
+For 100% of the data, 1 <= N, K <= 1000
+
+
+输出描述:
+Output the selected place. Or "otaku" without quotes if no place is selected.
+
+In the sample case, if the second peoson vote against the first place, no place would be selected finally because the first person must vote against the second place for his own interest. Considering staying at home is a worse choice than the first place, the second person's optimal strategy is voting for the first place. So the first place will be selected
+
+输入例子:
+2 2
+1 0 2
+2 1 0
+
+输出例子:
+1
+链接：https://www.nowcoder.com/questionTerminal/84addf13322a42ad80da5fc89e784ea1
+来源：牛客网
+
+
+解释：
+班上有N个人，有K个候选地，组成N*K矩阵 
+  X11,X12,...,X1K 
+  X21,X22,...,X2K 
+  ... 
+  XN1,XN2,...XNK 
+
+  
+
+  从第一列开始遍历到最后一列，对每个候选地计数，第一个超过一半的候选地为答案；如果同时有多个候选地符合标准，选候选地下标最大的。 
+  如： 
+  student1：120 
+  student2：210 
+
+  
+
+
+  分析：第1次对候选地1投票，student1必定同意，student2如果同意，就此打住。如果student2不同意，第2次对候选地2投票，student1必定同意，student2必定同意，可见，由于候选地投票有先后顺序，导致喜欢候选地排在后面的人更占优势。所以！！候选地从后往前扫描！！
+
+#include <iostream>  
+#include <cstring>  
+using namespace std;  
+  
+int choose[1005][1005],n,k,half;  
+  
+bool useful(int least,int now)  
+{  
+    int i,coun;  
+    coun=0;  
+    for(i=1;i<=n;i++)  
+        if(choose[i][now]<choose[i][least])  
+            coun++;  
+    if(coun>=half)  
+        return true;  
+    return false;  
+}  
+  
+int main()  
+{  
+//  freopen("aa.txt","r",stdin);  
+    int i,j,ans,q;  
+    while(cin>>n>>k){  
+    for(i=1;i<=n;i++)  
+        for(j=1;j<=k+1;j++) {  
+            scanf("%d",&q);  
+            choose[i][q]=j;              //第i个人对于第q个地方的喜好程度，值越小越喜欢  
+        }  
+    half=n/2+1;  
+    ans=0;  
+    for(i=k;i>=1;i--)  //候选地一定要从后往前扫描
+        if(useful(ans,i))  
+            ans=i;  
+    if(ans==0)  
+        cout<<"otaku"<<endl;  
+    else  
+        cout<<ans<<endl;  
+    }
+}  

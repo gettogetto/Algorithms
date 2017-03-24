@@ -1,0 +1,49 @@
+[编程题] 纸牌博弈
+有一个整型数组A，代表数值不同的纸牌排成一条线。玩家a和玩家b依次拿走每张纸牌，规定玩家a先拿，玩家B后拿，但是每个玩家每次只能拿走最左或最右的纸牌，玩家a和玩家b都绝顶聪明，他们总会采用最优策略。请返回最后获胜者的分数。
+给定纸牌序列A及序列的大小n，请返回最后分数较高者得分数(相同则返回任意一个分数)。保证A中的元素均小于等于1000。且A的大小小于等于300。
+测试样例：
+[1,2,100,4],4
+返回：101
+
+
+class Cards {
+public:
+    int s[305][305]={0};
+int dfs(vector<int>& a,int l,int r,int who)  
+{  
+    if(s[l][r])return s[l][r];  
+    if(l==r&&!who){s[l][r]=a[l];return a[l];}  
+    if(l==r&& who){s[l][r]=0;return 0;}  
+    //先拿  
+    if(!who) return s[l][r]=max(dfs(a,l+1,r,!who)+a[l],dfs(a,l,r-1,!who)+a[r]);  
+    else  return s[l][r]=min(dfs(a,l+1,r,!who),dfs(a,l,r-1,!who));  
+}  
+    
+    int cardGame(vector<int> A, int n) {
+        // write code here
+        int a1=dfs(A,0,n-1,0);
+        int a2=accumulate(A.begin(),A.end(),0)-a1;
+        return max(a1,a2);
+      //  return res;
+    }
+};
+
+
+//迭代
+class Cards {
+public:
+    int cardGame(vector<int> A, int n) {
+        // write code here
+        vector<vector<int> > first(n+1,vector<int>(n,0));
+        vector<vector<int> > second(n+1,vector<int>(n,0));
+        first[0][0]=A[0];
+        first[n-1][n-1]=A[n-1];
+          
+        for(int j=1;j<n;++j)
+            for(int i=j;i>=0;--i){
+                first[i][j]=max(A[i]+second[i+1][j],A[j]+second[i][j-1]);
+                second[i][j]=min(first[i+1][j],first[i][j-1]);
+        }
+        return max(first[0][n-1],second[0][n-1]);
+    }
+};
