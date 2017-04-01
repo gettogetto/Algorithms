@@ -78,7 +78,7 @@ void ListComponents(const Graph& graph , bool BFSorDFS) {
 		for (auto ii : res) cout << char(ii + 'A');
 		cout << endl;
 	}
-	
+
 }
 /*
 对一个有向无环图(Directed Acyclic Graph简称DAG)G进行拓扑排序，是将G中所有顶点排成一个线性序列，使
@@ -142,6 +142,7 @@ void dijkstra(const Graph& graph, Vertex source, vector<Vertex>& path) {
 		}
 		weight[i][j] = edge.m_weight;
 	}
+	//以上为初始化
 	vector<Vertex> dist(num,INT32_MAX);//dist[i]值source到i的最小路径
 
 	vector<bool> collected(num,false);//是否已收入
