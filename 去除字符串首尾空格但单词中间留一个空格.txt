@@ -1,0 +1,37 @@
+
+#include<iostream>
+using namespace std;
+char * formatString(char *sourceStr)
+{
+    char *pIndex=sourceStr,*pStart=sourceStr;//pIndex用来指向当前处理字符的位置，pStart始终指向首个非空格字符，即最终返回的字符串的起始地址
+    while(*pIndex!='\0')
+    {
+        if(*pStart==' ')//去除首部空格
+        {
+            pIndex++;
+            pStart++;
+        }
+        if(*pIndex==' '&&(*(pIndex+1)==' '||*(pIndex+1)=='\0'))//中间多个空格只保留一个,去除尾部空格
+        {
+            char *pTemp=pIndex;
+            while(*(pTemp+1)!='\0')
+            {
+
+                (*pTemp)=*(pTemp+1);
+                 pTemp++;
+            }
+            *pTemp='\0';
+        }else
+        {
+            pIndex++;
+        }
+    }
+    return pStart;
+}
+
+int main()
+{
+    char  str[]=" I love   meituan  ";//注意此处一定不能用字符指针，因为这样指向的是一个字符串常量，不能更改其内容
+    cout<<formatString(str);//<<endl;
+    return 1;
+}
