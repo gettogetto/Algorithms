@@ -121,7 +121,8 @@ private:
 
 
 /*
-Find all possible combinations of k numbers that add up to a number n, given that only numbers from 1 to 9 can be used and each combination should be a unique set of numbers.
+Find all possible combinations of k numbers that add up to a number n, given that only 
+numbers from 1 to 9 can be used and each combination should be a unique set of numbers.
 
 
 Example 1:
@@ -188,23 +189,15 @@ Note that different sequences are counted as different combinations.
 Therefore the output is 7.
 */
 
-class Solution {
-public:
-
-    
     int combinationSum4(vector<int>& nums, int target) {
-
         vector<int>dp(target+1,0);
-
+        dp[0]=1;
         for(int i=1;i<dp.size();i++){
             for(auto num:nums){
-                if(num<i){
+                if(num<=i){
                     dp[i]+=dp[i-num];
-                }else if(num==i){
-                    dp[i]+=1;
                 }
             }
         }
         return dp[target];
     }
-};
