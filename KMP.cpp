@@ -46,8 +46,8 @@ int kmp(const std::string& s, const std::string& p, const int sIndex = 0)
     return j == p.length() ? i - j: -1;
 }
 int main(){
-	string s="aaaaaabaabcac";
-	string p="ababaa";
+	string s="xyxyyxxyx";
+	string p="xyxyyxxyx";
 	
 	vector<int>next;
 	getNext(p,next);
