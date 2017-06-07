@@ -1,0 +1,56 @@
+Given a matrix consists of 0 and 1, find the distance of the nearest 0 for each cell.
+
+The distance between two adjacent cells is 1.
+Example 1: 
+Input:
+
+0 0 0
+0 1 0
+0 0 0
+Output:
+0 0 0
+0 1 0
+0 0 0
+Example 2: 
+Input:
+
+0 0 0
+0 1 0
+1 1 1
+Output:
+0 0 0
+0 1 0
+1 2 1
+Note:
+The number of elements of the given matrix will not exceed 10,000.
+There are at least one 0 in the given matrix.
+The cells are adjacent in only four directions: up, down, left and right.
+首先，BFS要用到了队列，让值为0的节点全部进入队列，代表要进行遍历的点；把值为1的点设为最大值，表示距离很远，初始状态下不能到。然后对于队列中的每个点都有四个方向，要考虑这个点临近的四个方向的点距都离为当前点到0点的距离加1.有点类似DP，把某个点到0的距离设为周围点到0的最短值+1即可。注意，遍历时修改完另外点的值的时候，一定要把这个节点也加入到队列中。这个点到0的距离是最近距离+1，而不是单纯的1.
+
+class Solution(object):
+    def updateMatrix(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        queue=collections.deque()
+        for i in xrange(len(matrix)):
+            for j in xrange(len(matrix[0])):
+                if matrix[i][j]==0:
+                    queue.append((i,j))
+                else:
+                    matrix[i][j]=float('inf')
+        d=((-1,0),(1,0),(0,-1),(0,1))
+        while queue:
+            cur=queue.popleft()
+            for i in xrange(4):
+                nexti,nextj=cur[0]+d[i][0],cur[1]+d[i][1]
+                
+                if not(0<=nexti<len(matrix)) or not(0<=nextj<len(matrix[0])) or matrix[nexti][nextj]<=matrix[cur[0]][cur[1]]+1:
+                    continue
+                matrix[nexti][nextj]=matrix[cur[0]][cur[1]]+1
+                queue.append((nexti,nextj))
+                
+        return matrix
+                    
+            
